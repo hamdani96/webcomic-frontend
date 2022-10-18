@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:webcomic/models/user_model.dart';
+import 'package:webcomic/providers/auth_provider.dart';
 import 'package:webcomic/theme.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -6,6 +9,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
     Widget header() {
       return AppBar(
         backgroundColor: Colors.white,
@@ -36,7 +41,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          ', Hamdani',
+                          ', ${user.name}',
                           style: primaryTextStyle.copyWith(
                             color: primaryColor,
                             fontWeight: bold,
@@ -46,7 +51,7 @@ class ProfilePage extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      'hamdan@gmail.com',
+                      user.email,
                       style: primaryTextStyle.copyWith(
                         fontSize: 14,
                       ),
@@ -123,8 +128,11 @@ class ProfilePage extends StatelessWidget {
                   fontWeight: semiBold,
                 ),
               ),
-              menuItem(
-                'Logout',
+              GestureDetector(
+                onTap: () {},
+                child: menuItem(
+                  'Logout',
+                ),
               ),
             ],
           ),

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:webcomic/models/comic_model.dart';
+import 'package:webcomic/pages/comic_pages.dart';
 import 'package:webcomic/theme.dart';
 
 class ComicCard extends StatelessWidget {
-  const ComicCard({super.key});
+  final ComicModel comic;
+  ComicCard(this.comic);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/comic');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ComicPage(comic),
+          ),
+        );
       },
       child: Container(
         width: 111,
@@ -25,7 +33,7 @@ class ComicCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Image.network(
-                'https://swebtoon-phinf.pstatic.net/20210529_30/16222490144574a5a7_JPEG/thumbnail.jpg',
+                comic.banner!,
                 width: double.infinity,
                 height: 250,
                 fit: BoxFit.cover,
@@ -51,12 +59,14 @@ class ComicCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'The Beauty',
+                        comic.title!,
                         style: primaryTextStyle.copyWith(
                           fontSize: 14,
                           fontWeight: bold,
                           color: Colors.white,
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                       Row(
                         children: [
@@ -69,7 +79,7 @@ class ComicCard extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            '12',
+                            '112',
                             style: primaryTextStyle.copyWith(
                               color: primaryColor,
                               fontSize: 10,

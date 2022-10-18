@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:webcomic/models/user_model.dart';
+import 'package:webcomic/providers/auth_provider.dart';
+import 'package:webcomic/providers/comic_provider.dart';
 import 'package:webcomic/theme.dart';
 import 'package:webcomic/widgets/comic_card.dart';
 import 'package:webcomic/widgets/comic_tile.dart';
@@ -8,6 +12,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+    ComicProvider comicProvider = Provider.of<ComicProvider>(context);
+
     Widget header() {
       return AppBar(
         backgroundColor: Colors.white,
@@ -38,7 +46,7 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          ', Hamdani',
+                          ', ${user.name}',
                           style: primaryTextStyle.copyWith(
                             color: primaryColor,
                             fontWeight: bold,
@@ -48,7 +56,7 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      'hamdan@gmail.com',
+                      user.email,
                       style: primaryTextStyle.copyWith(
                         fontSize: 14,
                       ),
@@ -111,13 +119,11 @@ class HomePage extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  ComicCard(),
-                  ComicCard(),
-                  ComicCard(),
-                  ComicCard(),
-                  ComicCard(),
-                ],
+                children: comicProvider.comics
+                    .map(
+                      (comic) => ComicCard(comic),
+                    )
+                    .toList(),
               ),
             ),
           ],
@@ -145,17 +151,14 @@ class HomePage extends StatelessWidget {
             SizedBox(
               height: 18,
             ),
-            Wrap(
-              direction: Axis.horizontal,
-              spacing: 15,
-              children: [
-                ComicTile(),
-                ComicTile(),
-                ComicTile(),
-                ComicTile(),
-                ComicTile(),
-                ComicTile(),
-              ],
+            Column(
+              // direction: Axis.horizontal,
+              // spacing: 15,
+              children: comicProvider.comics
+                  .map(
+                    (comic) => ComicTile(comic),
+                  )
+                  .toList(),
             ),
           ],
         ),

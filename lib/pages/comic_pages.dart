@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:webcomic/models/comic_model.dart';
 import 'package:webcomic/theme.dart';
 import 'package:webcomic/widgets/comic_list.dart';
 
 class ComicPage extends StatelessWidget {
-  const ComicPage({super.key});
+  final ComicModel comic;
+  ComicPage(this.comic);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class ComicPage extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                  'https://4.bp.blogspot.com/-k_qJ2CPTY4c/WrKuZZ5MM9I/AAAAAAAADWo/ymS6SazhgQ4akiDNS8CLMbkkAGEX4afugCLcBGAs/s1600/Bomtoon%2BContest%2B3.jpg',
+                  comic.banner!,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -41,7 +43,7 @@ class ComicPage extends StatelessWidget {
                 ),
                 Spacer(),
                 Container(
-                  width: double.infinity,
+                  // width: double.infinity,
                   padding: EdgeInsets.only(
                     left: 30,
                     right: 30,
@@ -58,11 +60,13 @@ class ComicPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Ale Story',
+                            comic.title!,
                             style: primaryTextStyle.copyWith(
                               fontSize: 20,
                               fontWeight: bold,
                             ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
                           Text(
                             'Romance',
@@ -109,7 +113,7 @@ class ComicPage extends StatelessWidget {
               height: 9,
             ),
             Text(
-              'Zephyr is the last human fighting evil in a world abandoned by the gods. When he is killed in battle by Tartarus, the god of destruction, all hope for humanity seems lost. But Zephyr’s fate is not sealed -- the gods who find his battles entertaining have gifted him a second chance at life, as he is sent ten years into the past, back to when he was a slave instead of the most powerful human alive. Can Zephyr get his revenge against Tartarus and save the woman he loves, or is he doomed to repeat the past?',
+              comic.description!,
               style: primaryTextStyle.copyWith(
                 fontSize: 12,
               ),
@@ -118,36 +122,38 @@ class ComicPage extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Container(
-              width: 156,
-              height: 42,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: primaryColor,
-              ),
-              child: TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/cart_icon.png',
-                      width: 18,
+            comic.status! == 'premium'
+                ? Container(
+                    width: 156,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: primaryColor,
                     ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Buy Comic',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: bold,
-                        color: Colors.white,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/cart_icon.png',
+                            width: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Buy Comic',
+                            style: primaryTextStyle.copyWith(
+                              fontWeight: bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : SizedBox(),
             SizedBox(
               height: 20,
             ),
