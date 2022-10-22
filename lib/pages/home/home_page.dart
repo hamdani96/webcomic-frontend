@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      user.email,
+                      user.email!,
                       style: primaryTextStyle.copyWith(
                         fontSize: 14,
                       ),
@@ -109,7 +109,7 @@ class HomePage extends StatelessWidget {
             Text(
               'Popular',
               style: primaryTextStyle.copyWith(
-                fontSize: 22,
+                fontSize: 16,
                 fontWeight: bold,
               ),
             ),
@@ -142,9 +142,9 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Terbaru',
+              'News',
               style: primaryTextStyle.copyWith(
-                fontSize: 22,
+                fontSize: 16,
                 fontWeight: bold,
               ),
             ),

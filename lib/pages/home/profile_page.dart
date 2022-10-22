@@ -51,7 +51,7 @@ class ProfilePage extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      user.email,
+                      user.email!,
                       style: primaryTextStyle.copyWith(
                         fontSize: 14,
                       ),

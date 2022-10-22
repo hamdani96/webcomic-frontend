@@ -48,7 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
       }
 
       setState(() {
-        isLoading = true;
+        isLoading = false;
       });
     }
 

@@ -31,26 +31,26 @@ class ComicPage extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   child: Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       left: 10,
                       top: 10,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.chevron_left,
                       color: Colors.white,
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   // width: double.infinity,
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 30,
-                    right: 30,
+                    right: 25,
                     bottom: 10,
                     top: 10,
                   ),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.black26,
                   ),
                   child: Row(
@@ -64,23 +64,20 @@ class ComicPage extends StatelessWidget {
                             style: primaryTextStyle.copyWith(
                               fontSize: 20,
                               fontWeight: bold,
+                              color: Colors.white,
                             ),
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                            maxLines: 2,
                           ),
                           Text(
-                            'Romance',
+                            comic.category.category!,
                             style: primaryTextStyle.copyWith(
                               fontWeight: light,
                               fontSize: 10,
+                              color: Colors.white,
                             ),
                           ),
                         ],
-                      ),
-                      Icon(
-                        Icons.bookmark_add_outlined,
-                        color: primaryColor,
-                        size: 30,
                       ),
                     ],
                   ),
@@ -94,7 +91,7 @@ class ComicPage extends StatelessWidget {
 
     Widget content() {
       return Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 20,
           right: 30,
           left: 30,
@@ -102,6 +99,52 @@ class ComicPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              children: [
+                Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'https://avatars.githubusercontent.com/u/58839721?v=4',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Komikus',
+                      style: primaryTextStyle.copyWith(
+                        fontWeight: bold,
+                        fontSize: 10,
+                      ),
+                    ),
+                    Text(
+                      comic.user.name!,
+                      style: primaryTextStyle.copyWith(
+                        fontWeight: regular,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                const Icon(
+                  Icons.bookmark_add,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
             Text(
               'Synopsis',
               style: primaryTextStyle.copyWith(
@@ -109,7 +152,7 @@ class ComicPage extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 9,
             ),
             Text(
@@ -119,7 +162,7 @@ class ComicPage extends StatelessWidget {
               ),
               textAlign: TextAlign.justify,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             comic.status! == 'premium'
@@ -131,7 +174,9 @@ class ComicPage extends StatelessWidget {
                       color: primaryColor,
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/checkout');
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -139,7 +184,7 @@ class ComicPage extends StatelessWidget {
                             'assets/cart_icon.png',
                             width: 18,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
@@ -167,9 +212,13 @@ class ComicPage extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            ComicList(),
-            ComicList(),
-            ComicList(),
+            Column(
+              children: comic.detail_comics
+                  .map(
+                    (detailComic) => ComicList(detailComic),
+                  )
+                  .toList(),
+            ),
           ],
         ),
       );

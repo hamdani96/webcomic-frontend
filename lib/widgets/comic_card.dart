@@ -88,7 +88,7 @@ class ComicCard extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        'Romance',
+                        comic.category.category!,
                         style: primaryTextStyle.copyWith(
                           fontWeight: light,
                           color: Colors.white,

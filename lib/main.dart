@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:webcomic/pages/checkout_page.dart';
 import 'package:webcomic/pages/comic_detail_page.dart';
 import 'package:webcomic/pages/comic_pages.dart';
 import 'package:webcomic/pages/home/main_page.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => MainPage(),
           // '/comic': (context) => ComicPage(),
           '/comic-detail': (context) => ComicDetailPage(),
+          '/checkout': (context) => CheckoutPage(),
         },
       ),
     );

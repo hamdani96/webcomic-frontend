@@ -42,7 +42,7 @@ class _SignInPageState extends State<SignInPage> {
       }
 
       setState(() {
-        isLoading = true;
+        isLoading = false;
       });
     }
 

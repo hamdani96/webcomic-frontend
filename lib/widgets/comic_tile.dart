@@ -51,7 +51,7 @@ class ComicTile extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  'Romance',
+                  comic.category.category!,
                   style: primaryTextStyle.copyWith(
                     fontWeight: light,
                     fontSize: 10,

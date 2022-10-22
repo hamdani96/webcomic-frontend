@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:webcomic/models/category_model.dart';
+import 'package:webcomic/models/detail_comic_model.dart';
 import 'package:webcomic/models/user_model.dart';
 
 class ComicModel {
@@ -11,6 +11,9 @@ class ComicModel {
   late double price;
   DateTime? createdAt;
   DateTime? updatedAt;
+  late UserModel user;
+  late CategoryModel category;
+  late List<DetailComicModel> detail_comics;
 
   ComicModel({
     required this.id,
@@ -21,6 +24,9 @@ class ComicModel {
     required this.price,
     required this.createdAt,
     required this.updatedAt,
+    required this.user,
+    required this.category,
+    required this.detail_comics,
   });
 
   ComicModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +38,12 @@ class ComicModel {
     price = double.parse(json['price'].toString());
     createdAt = DateTime.parse(json['created_at']);
     updatedAt = DateTime.parse(json['updated_at']);
+    category = CategoryModel.fromJson(json['category']);
+    user = UserModel.fromJson(json['user']);
+    detail_comics = json['detail_comics']
+        .map<DetailComicModel>(
+            (detail_comic) => DetailComicModel.fromJson(detail_comic))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -44,6 +56,11 @@ class ComicModel {
       'price': price,
       'createdAt': createdAt.toString(),
       'updatedAt': updatedAt.toString(),
+      'user_id': user.toJson(),
+      'category': category.toJson(),
+      'user': user.toJson(),
+      'detail_comics':
+          detail_comics.map((detail_comic) => detail_comic.toJson()).toList(),
     };
   }
 }

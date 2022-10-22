@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:webcomic/models/detail_comic_model.dart';
 import 'package:webcomic/theme.dart';
 
 class ComicList extends StatelessWidget {
-  const ComicList({super.key});
+  final DetailComicModel detailComic;
+  ComicList(this.detailComic);
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,14 @@ class ComicList extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     image: DecorationImage(
                       image: NetworkImage(
-                        'https://i.pinimg.com/736x/26/dd/1c/26dd1c83544e83eb40a1a8fd68182350.jpg',
+                        detailComic.image,
                       ),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Expanded(
@@ -39,36 +41,29 @@ class ComicList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Story Of Ale',
+                      detailComic.title,
                       style: primaryTextStyle.copyWith(
                         fontWeight: bold,
                       ),
                     ),
                     Text(
-                      'Romance',
-                      style: primaryTextStyle.copyWith(
-                        fontWeight: light,
-                        fontSize: 10,
-                      ),
-                    ),
-                    Text(
-                      'belum dibaca',
+                      detailComic.status,
                       style: primaryTextStyle.copyWith(
                         fontWeight: light,
                         fontSize: 10,
                         color: Colors.black54,
                       ),
                     ),
+                    Text(
+                      'EPS ${detailComic.episode}',
+                      style: primaryTextStyle.copyWith(
+                        fontWeight: bold,
+                        color: primaryColor,
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Text(
-                'EPS 01',
-                style: primaryTextStyle.copyWith(
-                  fontWeight: bold,
-                  color: primaryColor,
-                ),
-              )
             ],
           ),
           SizedBox(
